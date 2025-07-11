@@ -1,0 +1,103 @@
+name: Deploy to Azure
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  # Azure Static Web Apps Deployment
+  deploy-static:
+    runs-on: ubuntu-latest
+    name: Deploy to Azure Static Web Apps
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build application
+        run: npm run build
+        env:
+          VITE_ENVIRONMENT: production
+
+      - name: Deploy to Azure Static Web Apps
+        id: builddeploy
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          action: "upload"
+          app_location: "/"
+          api_location: ""
+          output_location: "dist"
+
+  # Azure App Service Deployment (alternative)
+  deploy-app-service:
+    runs-on: ubuntu-latest
+    name: Deploy to Azure App Service
+    if: false # Enable this by changing to true when needed
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build application
+        run: npm run build
+        env:
+          VITE_ENVIRONMENT: production
+
+      - name: Deploy to Azure App Service
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: 'alaska-airlines-dashboard'
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          package: .
+
+  # Docker Container Deployment
+  deploy-container:
+    runs-on: ubuntu-latest
+    name: Deploy to Azure Container Instances
+    if: false # Enable this by changing to true when needed
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Login to Azure Container Registry
+        uses: azure/docker-login@v1
+        with:
+          login-server: ${{ secrets.AZURE_REGISTRY_LOGIN_SERVER }}
+          username: ${{ secrets.AZURE_REGISTRY_USERNAME }}
+          password: ${{ secrets.AZURE_REGISTRY_PASSWORD }}
+
+      - name: Build and push Docker image
+        run: |
+          docker build -t ${{ secrets.AZURE_REGISTRY_LOGIN_SERVER }}/alaska-airlines-dashboard:${{ github.sha }} .
+          docker push ${{ secrets.AZURE_REGISTRY_LOGIN_SERVER }}/alaska-airlines-dashboard:${{ github.sha }}
+
+      - name: Deploy to Azure Container Instances
+        uses: azure/aci-deploy@v1
+        with:
+          resource-group: alaska-airlines-rg
+          dns-name-label: alaska-airlines-dashboard-${{ github.run_number }}
+          image: ${{ secrets.AZURE_REGISTRY_LOGIN_SERVER }}/alaska-airlines-dashboard:${{ github.sha }}
+          registry-login-server: ${{ secrets.AZURE_REGISTRY_LOGIN_SERVER }}
+          registry-username: ${{ secrets.AZURE_REGISTRY_USERNAME }}
+          registry-password: ${{ secrets.AZURE_REGISTRY_PASSWORD }}
+          name: alaska-airlines-dashboard
+          location: 'east us'
