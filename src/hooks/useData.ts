@@ -122,7 +122,7 @@ export const useTrips = () => {
 
 // Hook for managing offers
 export const useOffers = () => {
-  const [offers, setOffers] = useState<Offer[]>([
+  const [offers] = useState<Offer[]>([
     {
       id: 1,
       title: 'Double Miles Promotion',
