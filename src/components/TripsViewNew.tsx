@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
-import type { Trip, Challenge, PriceAlert } from '../types';
-import Modal from './Modal';
+// This file is no longer needed - functionality moved to TripsView.tsx
+export {};
 
 const TripsView: React.FC = () => {
   const [selectedTrip, setSelectedTrip] = useState<Trip | null>(null);
