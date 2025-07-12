@@ -11,6 +11,7 @@ import {
 import { useUserData, useLocalStorage } from './hooks';
 
 // Main App Component
+
 const App: React.FC = () => {
   const { user } = useUserData();
   const [activeView, setActiveView] = useLocalStorage('activeView', 'dashboard');
