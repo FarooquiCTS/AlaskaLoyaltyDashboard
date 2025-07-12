@@ -4,6 +4,7 @@ export interface User {
   name: string;
   loyaltyPoints: number;
   eliteStatus: string;
+  mileagePlanNumber: string;
 }
 
 export interface NavButtonProps {
@@ -34,6 +35,17 @@ export interface Trip {
   status: string;
   flightNumber: string;
   departureTime: string;
+  arrivalTime?: string;
+  departureAirport?: string;
+  arrivalAirport?: string;
+  aircraft?: string;
+  seatNumber?: string;
+  gate?: string;
+  confirmationCode?: string;
+  totalCost?: string;
+  milesEarned?: number;
+  baggageInfo?: string;
+  specialServices?: string[];
 }
 
 export interface Offer {

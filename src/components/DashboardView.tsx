@@ -10,10 +10,9 @@ interface DashboardViewProps {
 
 const DashboardView: React.FC<DashboardViewProps> = ({ user }) => {
   const dashboardMetrics: DashboardMetric[] = [
-    { title: 'Loyalty Points', value: '24,856', change: '+1,250' },
-    { title: 'Miles Flown', value: '156,240', change: '+8,450' },
-    { title: 'Elite Status', value: 'Gold', change: '2,344 to Platinum' },
-    { title: 'Savings YTD', value: '$2,450', change: '+$340' }
+    { title: 'Available Miles', value: '24,856', change: '+1,250' },
+    { title: 'Lifetime Alaska Miles', value: '156,240', change: '+8,450' },
+    { title: 'Elite Status', value: 'Gold', change: '2,344 to Platinum' }
   ];
 
   const achievements: Achievement[] = [
@@ -148,15 +147,15 @@ const DashboardView: React.FC<DashboardViewProps> = ({ user }) => {
                 display: 'flex',
                 alignItems: 'center',
                 padding: '20px',
-                background: 'linear-gradient(135deg, #fef3c7 0%, #fde68a 100%)',
+                background: 'linear-gradient(135deg, rgba(5, 117, 138, 0.1) 0%, rgba(5, 117, 138, 0.05) 100%)',
                 borderRadius: '12px',
-                border: '1px solid #f59e0b',
+                border: '1px solid rgba(5, 117, 138, 0.2)',
                 transition: 'all 0.3s ease',
                 cursor: 'pointer'
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform = 'translateY(-2px)';
-                e.currentTarget.style.boxShadow = '0 10px 25px -3px rgba(245, 158, 11, 0.3)';
+                e.currentTarget.style.boxShadow = '0 10px 25px -3px rgba(5, 117, 138, 0.3)';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.transform = 'translateY(0)';
@@ -170,20 +169,20 @@ const DashboardView: React.FC<DashboardViewProps> = ({ user }) => {
                 <div>
                   <h4 style={{
                     fontWeight: '600',
-                    color: '#92400e',
+                    color: '#05758a',
                     marginBottom: '4px',
                     fontSize: '16px'
                   }}>{achievement.title}</h4>
                   <p style={{
                     fontSize: '14px',
-                    color: '#a16207',
+                    color: '#6b7280',
                     marginBottom: '6px'
                   }}>{achievement.description}</p>
                   <p style={{
                     fontSize: '12px',
-                    color: '#d97706',
+                    color: '#05758a',
                     fontWeight: '500',
-                    backgroundColor: 'rgba(255, 255, 255, 0.3)',
+                    backgroundColor: 'rgba(255, 255, 255, 0.8)',
                     padding: '2px 8px',
                     borderRadius: '12px',
                     display: 'inline-block'

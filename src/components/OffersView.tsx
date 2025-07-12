@@ -19,21 +19,73 @@ const OffersView: React.FC = () => {
       <h1 className="text-3xl font-bold text-gray-800">Exclusive Offers</h1>
       
       {/* Flash Offers */}
-      <div className="bg-gradient-to-r from-red-500 to-pink-600 rounded-lg p-6 text-white">
-        <h2 className="text-xl font-bold mb-4">⚡ Flash Deals</h2>
+      <div style={{
+        background: 'linear-gradient(135deg, #05758a 0%, #044556 100%)',
+        borderRadius: '12px',
+        padding: '24px',
+        color: 'white',
+        boxShadow: '0 10px 25px -3px rgba(5, 117, 138, 0.3)'
+      }}>
+        <h2 style={{
+          fontSize: '20px',
+          fontWeight: 'bold',
+          marginBottom: '16px',
+          color: 'white'
+        }}>⚡ Flash Deals</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {flashOffers.map((offer, index) => (
-            <div key={index} className="bg-white bg-opacity-20 rounded-lg p-4 backdrop-blur-sm">
+            <div key={index} style={{
+              backgroundColor: 'rgba(255, 255, 255, 0.15)',
+              borderRadius: '12px',
+              padding: '16px',
+              backdropFilter: 'blur(10px)',
+              border: '1px solid rgba(255, 255, 255, 0.1)'
+            }}>
               <div className="flex justify-between items-start mb-2">
-                <h3 className="font-bold text-lg">{offer.title}</h3>
-                <span className="bg-yellow-400 text-red-600 px-2 py-1 rounded-full text-sm font-bold">
+                <h3 style={{
+                  fontWeight: 'bold',
+                  fontSize: '18px',
+                  color: 'white'
+                }}>{offer.title}</h3>
+                <span style={{
+                  backgroundColor: '#fef3c7',
+                  color: '#05758a',
+                  padding: '4px 8px',
+                  borderRadius: '9999px',
+                  fontSize: '12px',
+                  fontWeight: 'bold'
+                }}>
                   {offer.discount}
                 </span>
               </div>
-              <p className="text-white text-opacity-90 mb-3">{offer.description}</p>
+              <p style={{
+                color: 'rgba(255, 255, 255, 0.9)',
+                marginBottom: '12px',
+                fontSize: '14px'
+              }}>{offer.description}</p>
               <div className="flex justify-between items-center">
-                <span className="text-sm">⏰ {offer.timeLeft} left</span>
-                <button className="bg-white text-red-600 px-4 py-2 rounded-full font-medium hover:bg-gray-100 transition-colors duration-200">
+                <span style={{
+                  fontSize: '14px',
+                  color: 'rgba(255, 255, 255, 0.8)'
+                }}>⏰ {offer.timeLeft} left</span>
+                <button style={{
+                  backgroundColor: 'white',
+                  color: '#05758a',
+                  padding: '8px 16px',
+                  borderRadius: '9999px',
+                  fontWeight: '500',
+                  border: 'none',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = '#f3f4f6';
+                  e.currentTarget.style.transform = 'scale(1.05)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = 'white';
+                  e.currentTarget.style.transform = 'scale(1)';
+                }}>
                   Grab Deal
                 </button>
               </div>
@@ -45,19 +97,54 @@ const OffersView: React.FC = () => {
       {/* Regular Offers */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {offers.map((offer) => (
-          <div key={offer.id} className="bg-white rounded-lg p-6 shadow-lg border border-gray-200 hover:shadow-xl transition-shadow duration-300">
+          <div key={offer.id} style={{
+            backgroundColor: 'white',
+            borderRadius: '12px',
+            padding: '24px',
+            boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+            border: '1px solid #e5e7eb',
+            transition: 'all 0.3s ease',
+            cursor: 'default'
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.transform = 'translateY(-2px)';
+            e.currentTarget.style.boxShadow = '0 8px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = 'translateY(0)';
+            e.currentTarget.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)';
+          }}>
             <div className="flex justify-between items-start mb-4">
-              <span className={`px-3 py-1 rounded-full text-sm font-medium ${
-                offer.type === 'Points' ? 'bg-blue-100 text-blue-800' :
-                offer.type === 'Upgrade' ? 'bg-purple-100 text-purple-800' :
-                'bg-green-100 text-green-800'
-              }`}>
+              <span style={{
+                padding: '4px 12px',
+                borderRadius: '9999px',
+                fontSize: '14px',
+                fontWeight: '500',
+                backgroundColor: offer.type === 'Points' ? 'rgba(5, 117, 138, 0.1)' :
+                                offer.type === 'Upgrade' ? 'rgba(124, 58, 237, 0.1)' :
+                                'rgba(5, 150, 105, 0.1)',
+                color: offer.type === 'Points' ? '#05758a' :
+                       offer.type === 'Upgrade' ? '#7c3aed' :
+                       '#059669'
+              }}>
                 {offer.type}
               </span>
             </div>
             <h3 className="text-xl font-bold text-gray-800 mb-2">{offer.title}</h3>
             <p className="text-gray-600 mb-4">{offer.description}</p>
-            <button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-lg transition-colors duration-200">
+            <button style={{
+              width: '100%',
+              backgroundColor: '#05758a',
+              color: 'white',
+              fontWeight: '500',
+              padding: '12px 16px',
+              borderRadius: '8px',
+              border: 'none',
+              cursor: 'pointer',
+              transition: 'all 0.2s ease'
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#044556'}
+            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#05758a'}>
               {offer.action}
             </button>
           </div>

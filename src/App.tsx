@@ -36,10 +36,14 @@ const App: React.FC = () => {
       case 'trips':
         return <TripsView />;
       case 'profile':
-        return <ProfileView />;
+        return <ProfileView user={user} />;
       default:
         return <DashboardView user={user} />;
     }
+  };
+
+  const handleViewProfile = () => {
+    setActiveView('profile');
   };
 
   return (
@@ -47,7 +51,7 @@ const App: React.FC = () => {
       minHeight: '100vh',
       backgroundColor: '#f3f4f6'
     }}>
-      <Header user={user} />
+      <Header user={user} onViewProfile={handleViewProfile} />
       <Navigation activeView={activeView} setActiveView={setActiveView} />
       
       {/* Main Content */}
