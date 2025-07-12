@@ -6,7 +6,8 @@ export const useUserData = () => {
   const [user, setUser] = useState<User>({
     name: 'Sarah Johnson',
     loyaltyPoints: 24856,
-    eliteStatus: 'Gold'
+    eliteStatus: 'Gold',
+    mileagePlanNumber: '562484576'
   });
 
   const [loading, setLoading] = useState(false);
@@ -32,10 +33,9 @@ export const useUserData = () => {
 // Hook for managing dashboard metrics
 export const useDashboardMetrics = () => {
   const [metrics, setMetrics] = useState<DashboardMetric[]>([
-    { title: 'Loyalty Points', value: '24,856', change: '+1,250' },
-    { title: 'Miles Flown', value: '156,240', change: '+8,450' },
-    { title: 'Elite Status', value: 'Gold', change: '2,344 to Platinum' },
-    { title: 'Savings YTD', value: '$2,450', change: '+$340' }
+    { title: 'Available Miles', value: '24,856', change: '+1,250' },
+    { title: 'Lifetime Alaska Miles', value: '156,240', change: '+8,450' },
+    { title: 'Elite Status', value: 'Gold', change: '2,344 to Platinum' }
   ]);
 
   const [loading, setLoading] = useState(false);

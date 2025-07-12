@@ -42,13 +42,14 @@ const Card: React.FC<CardProps> = ({
 
   const cardStyle: React.CSSProperties = {
     background: getBackgroundStyle(),
-    borderRadius: '16px',
+    borderRadius: '12px',
     border: variant === 'border' ? '2px solid #e5e7eb' : '1px solid #e5e7eb',
     padding: getPadding(),
-    boxShadow: shadow ? '0 10px 25px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)' : 'none',
+    boxShadow: shadow ? '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)' : 'none',
     transition: hover ? 'all 0.3s ease' : 'none',
     cursor: hover ? 'pointer' : 'default',
-    marginBottom: '24px'
+    marginBottom: '24px',
+    backgroundColor: 'white'
   };
 
   return (
@@ -57,11 +58,11 @@ const Card: React.FC<CardProps> = ({
       className={className}
       onMouseEnter={hover ? (e) => {
         e.currentTarget.style.transform = 'translateY(-2px)';
-        e.currentTarget.style.boxShadow = '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)';
+        e.currentTarget.style.boxShadow = '0 8px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)';
       } : undefined}
       onMouseLeave={hover ? (e) => {
         e.currentTarget.style.transform = 'translateY(0)';
-        e.currentTarget.style.boxShadow = shadow ? '0 10px 25px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)' : 'none';
+        e.currentTarget.style.boxShadow = shadow ? '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)' : 'none';
       } : undefined}
     >
       {(title || subtitle) && (

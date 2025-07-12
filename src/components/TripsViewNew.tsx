@@ -110,7 +110,7 @@ const TripsView: React.FC = () => {
 
   return (
     <div className="space-y-8">
-      <h1 className="text-3xl font-bold text-gray-800">Your Trips</h1>
+      <h1 className="text-3xl font-bold text-gray-800" style={{ fontFamily: 'Inter, sans-serif' }}>Your Trips</h1>
       
       {/* Upcoming Trips */}
       <div style={{
@@ -121,7 +121,7 @@ const TripsView: React.FC = () => {
         border: '1px solid #e5e7eb',
         marginBottom: '24px'
       }}>
-        <h2 className="text-xl font-bold text-gray-800 mb-6">Upcoming Trips</h2>
+        <h2 className="text-xl font-bold text-gray-800 mb-6" style={{ fontFamily: 'Inter, sans-serif' }}>Upcoming Trips</h2>
         <div className="space-y-4">
           {upcomingTrips.map((trip) => (
             <div key={trip.id} style={{
@@ -144,16 +144,18 @@ const TripsView: React.FC = () => {
                   justifyContent: 'center',
                   color: 'white',
                   fontWeight: 'bold',
-                  marginRight: '16px'
+                  marginRight: '16px',
+                  fontFamily: 'Source Sans Pro, sans-serif'
                 }}>
                   ✈️
                 </div>
                 <div>
-                  <h3 className="font-bold text-gray-800">{trip.destination}</h3>
-                  <p className="text-sm text-gray-600">{trip.dates}</p>
+                  <h3 className="font-bold text-gray-800" style={{ fontFamily: 'Inter, sans-serif' }}>{trip.destination}</h3>
+                  <p className="text-sm text-gray-600" style={{ fontFamily: 'Source Sans Pro, sans-serif' }}>{trip.dates}</p>
                   <p style={{
                     fontSize: '14px',
-                    color: '#05758a'
+                    color: '#05758a',
+                    fontFamily: 'Source Sans Pro, sans-serif'
                   }}>{trip.flightNumber} • {trip.departureTime}</p>
                 </div>
               </div>
@@ -164,7 +166,92 @@ const TripsView: React.FC = () => {
                   padding: '4px 12px',
                   borderRadius: '9999px',
                   fontSize: '14px',
-                  fontWeight: '500'
+                  fontWeight: '500',
+                  fontFamily: 'Source Sans Pro, sans-serif'
+                }}>
+                  {trip.status}
+                </span>
+                <button 
+                  onClick={() => handleViewDetails(trip)}
+                  style={{
+                    display: 'block',
+                    marginTop: '8px',
+                    color: '#05758a',
+                    fontSize: '14px',
+                    fontWeight: '500',
+                    background: 'none',
+                    border: 'none',
+                    cursor: 'pointer',
+                    transition: 'color 0.2s ease',
+                    fontFamily: 'Source Sans Pro, sans-serif'
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.color = '#044556'}
+                  onMouseLeave={(e) => e.currentTarget.style.color = '#05758a'}
+                >
+                  View Details
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Trip History */}
+      <div style={{
+        backgroundColor: 'white',
+        borderRadius: '12px',
+        padding: '24px',
+        boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+        border: '1px solid #e5e7eb',
+        marginBottom: '24px'
+      }}>
+        <h2 className="text-xl font-bold text-gray-800 mb-6" style={{ fontFamily: 'Inter, sans-serif' }}>Trip History</h2>
+        <div className="space-y-4">
+          {pastTrips.map((trip) => (
+            <div key={trip.id} style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              padding: '16px',
+              borderRadius: '8px',
+              backgroundColor: 'rgba(107, 114, 128, 0.05)',
+              border: '1px solid rgba(107, 114, 128, 0.2)'
+            }}>
+              <div className="flex items-center">
+                <div style={{
+                  width: '48px',
+                  height: '48px',
+                  backgroundColor: '#6b7280',
+                  borderRadius: '50%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: 'white',
+                  fontWeight: 'bold',
+                  marginRight: '16px',
+                  fontFamily: 'Source Sans Pro, sans-serif'
+                }}>
+                  ✈️
+                </div>
+                <div>
+                  <h3 className="font-bold text-gray-800" style={{ fontFamily: 'Inter, sans-serif' }}>{trip.destination}</h3>
+                  <p className="text-sm text-gray-600" style={{ fontFamily: 'Source Sans Pro, sans-serif' }}>{trip.dates}</p>
+                  <p style={{
+                    fontSize: '14px',
+                    color: '#6b7280',
+                    fontFamily: 'Source Sans Pro, sans-serif'
+                  }}>{trip.flightNumber} • {trip.departureTime}</p>
+                </div>
+              </div>
+              <div className="text-right">
+                <span style={{
+                  backgroundColor: 'rgba(107, 114, 128, 0.1)',
+                  color: '#6b7280',
+                  padding: '4px 12px',
+                  borderRadius: '9999px',
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  fontFamily: 'Source Sans Pro, sans-serif'
                 }}>
                   {trip.status}
                 </span>
@@ -202,7 +289,7 @@ const TripsView: React.FC = () => {
         border: '1px solid #e5e7eb',
         marginBottom: '24px'
       }}>
-        <h2 className="text-xl font-bold text-gray-800 mb-6">Travel Challenges</h2>
+        <h2 className="text-xl font-bold text-gray-800 mb-6" style={{ fontFamily: 'Inter, sans-serif' }}>Travel Challenges</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {challenges.map((challenge) => (
             <div key={challenge.id} style={{
@@ -220,14 +307,15 @@ const TripsView: React.FC = () => {
               e.currentTarget.style.transform = 'translateY(0)';
               e.currentTarget.style.boxShadow = 'none';
             }}>
-              <h3 className="font-bold text-gray-800 mb-2">{challenge.title}</h3>
-              <p className="text-sm text-gray-600 mb-3">{challenge.description}</p>
+              <h3 className="font-bold text-gray-800 mb-2" style={{ fontFamily: 'Inter, sans-serif' }}>{challenge.title}</h3>
+              <p className="text-sm text-gray-600 mb-3" style={{ fontFamily: 'Source Sans Pro, sans-serif' }}>{challenge.description}</p>
               <div className="mb-3">
                 <div className="flex justify-between text-sm mb-1">
-                  <span>{challenge.progress}/{challenge.target}</span>
+                  <span style={{ fontFamily: 'Source Sans Pro, sans-serif' }}>{challenge.progress}/{challenge.target}</span>
                   <span style={{
                     color: '#05758a',
-                    fontWeight: '500'
+                    fontWeight: '500',
+                    fontFamily: 'Source Sans Pro, sans-serif'
                   }}>{challenge.reward}</span>
                 </div>
                 <div className="bg-gray-200 rounded-full h-2">
@@ -256,7 +344,7 @@ const TripsView: React.FC = () => {
         border: '1px solid #e5e7eb',
         marginBottom: '24px'
       }}>
-        <h2 className="text-xl font-bold text-gray-800 mb-6">Price Alerts</h2>
+        <h2 className="text-xl font-bold text-gray-800 mb-6" style={{ fontFamily: 'Inter, sans-serif' }}>Price Alerts</h2>
         <div className="space-y-3">
           {priceAlerts.map((alert) => (
             <div key={alert.id} style={{
@@ -265,23 +353,23 @@ const TripsView: React.FC = () => {
               justifyContent: 'space-between',
               padding: '16px',
               borderRadius: '8px',
-              backgroundColor: '#f9fafb',
-              border: '1px solid #e5e7eb',
-              transition: 'all 0.2s ease'
-            }}
-            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f3f4f6'}
-            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#f9fafb'}>
+              backgroundColor: alert.status === 'Triggered' ? 'rgba(239, 68, 68, 0.05)' : 'rgba(107, 114, 128, 0.05)',
+              border: alert.status === 'Triggered' ? '1px solid rgba(239, 68, 68, 0.2)' : '1px solid rgba(107, 114, 128, 0.2)'
+            }}>
               <div>
-                <h3 className="font-medium text-gray-800">{alert.route}</h3>
-                <p className="text-sm text-gray-600">Target: {alert.targetPrice} • Current: {alert.currentPrice}</p>
+                <h3 className="font-bold text-gray-800" style={{ fontFamily: 'Inter, sans-serif' }}>{alert.route}</h3>
+                <p className="text-sm text-gray-600" style={{ fontFamily: 'Source Sans Pro, sans-serif' }}>
+                  Current: {alert.currentPrice} • Target: {alert.targetPrice}
+                </p>
               </div>
               <span style={{
+                backgroundColor: alert.status === 'Triggered' ? 'rgba(239, 68, 68, 0.1)' : 'rgba(34, 197, 94, 0.1)',
+                color: alert.status === 'Triggered' ? '#dc2626' : '#16a34a',
                 padding: '4px 12px',
                 borderRadius: '9999px',
                 fontSize: '14px',
                 fontWeight: '500',
-                backgroundColor: alert.status === 'Active' ? 'rgba(5, 117, 138, 0.1)' : 'rgba(5, 150, 105, 0.1)',
-                color: alert.status === 'Active' ? '#05758a' : '#059669'
+                fontFamily: 'Source Sans Pro, sans-serif'
               }}>
                 {alert.status}
               </span>
@@ -290,97 +378,32 @@ const TripsView: React.FC = () => {
         </div>
       </div>
 
-      {/* Past Trips */}
-      <div style={{
-        backgroundColor: 'white',
-        borderRadius: '12px',
-        padding: '24px',
-        boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
-        border: '1px solid #e5e7eb',
-        marginBottom: '24px'
-      }}>
-        <h2 className="text-xl font-bold text-gray-800 mb-6">Trip History</h2>
-        <div className="space-y-3">
-          {pastTrips.map((trip) => (
-            <div key={trip.id} style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              padding: '16px',
-              borderRadius: '8px',
-              backgroundColor: '#f9fafb',
-              border: '1px solid #e5e7eb',
-              transition: 'all 0.2s ease'
-            }}
-            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f3f4f6'}
-            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#f9fafb'}>
-              <div className="flex items-center">
-                <div style={{
-                  width: '40px',
-                  height: '40px',
-                  backgroundColor: '#059669',
-                  borderRadius: '50%',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: 'white',
-                  marginRight: '16px'
-                }}>
-                  ✓
-                </div>
-                <div>
-                  <h3 className="font-medium text-gray-800">{trip.destination}</h3>
-                  <p className="text-sm text-gray-600">{trip.dates}</p>
-                </div>
-              </div>
-              <button 
-                onClick={() => handleViewDetails(trip)}
-                style={{
-                  color: '#05758a',
-                  fontSize: '14px',
-                  fontWeight: '500',
-                  background: 'none',
-                  border: 'none',
-                  cursor: 'pointer',
-                  transition: 'color 0.2s ease',
-                  fontFamily: 'Source Sans Pro, sans-serif'
-                }}
-                onMouseEnter={(e) => e.currentTarget.style.color = '#044556'}
-                onMouseLeave={(e) => e.currentTarget.style.color = '#05758a'}
-              >
-                View Details
-              </button>
-            </div>
-          ))}
-        </div>
-      </div>
-
       {/* Trip Details Modal */}
       {showTripDetails && selectedTrip && (
-        <Modal isOpen={showTripDetails} onClose={closeModal} size="xl">
-          <div className="p-8">
-            <div className="flex items-center justify-between mb-8">
+        <Modal onClose={closeModal}>
+          <div className="p-6">
+            <div className="flex items-center justify-between mb-6">
               <div className="flex items-center">
                 <div style={{
-                  width: '64px',
-                  height: '64px',
+                  width: '56px',
+                  height: '56px',
                   backgroundColor: '#05758a',
                   borderRadius: '50%',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   color: 'white',
-                  fontSize: '28px',
-                  marginRight: '20px',
+                  fontSize: '24px',
+                  marginRight: '16px',
                   fontFamily: 'Source Sans Pro, sans-serif'
                 }}>
                   ✈️
                 </div>
                 <div>
-                  <h2 className="text-3xl font-bold text-gray-900" style={{ fontFamily: 'Inter, sans-serif' }}>
+                  <h2 className="text-2xl font-bold text-gray-900" style={{ fontFamily: 'Inter, sans-serif' }}>
                     Flight to {selectedTrip.destination}
                   </h2>
-                  <p className="text-lg text-gray-600 mt-1" style={{ fontFamily: 'Source Sans Pro, sans-serif' }}>
+                  <p className="text-gray-600" style={{ fontFamily: 'Source Sans Pro, sans-serif' }}>
                     {selectedTrip.dates}
                   </p>
                 </div>
@@ -388,9 +411,9 @@ const TripsView: React.FC = () => {
               <span style={{
                 backgroundColor: selectedTrip.status === 'Confirmed' ? 'rgba(5, 150, 105, 0.1)' : 'rgba(107, 114, 128, 0.1)',
                 color: selectedTrip.status === 'Confirmed' ? '#059669' : '#6b7280',
-                padding: '8px 20px',
+                padding: '6px 16px',
                 borderRadius: '9999px',
-                fontSize: '16px',
+                fontSize: '14px',
                 fontWeight: '500',
                 fontFamily: 'Source Sans Pro, sans-serif'
               }}>
@@ -398,46 +421,46 @@ const TripsView: React.FC = () => {
               </span>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Flight Information */}
               <div style={{
                 backgroundColor: 'rgba(5, 117, 138, 0.05)',
-                borderRadius: '12px',
-                padding: '28px',
+                borderRadius: '8px',
+                padding: '20px',
                 border: '1px solid rgba(5, 117, 138, 0.2)'
               }}>
-                <h3 className="text-xl font-semibold text-gray-900 mb-6" style={{ fontFamily: 'Inter, sans-serif' }}>
+                <h3 className="text-lg font-semibold text-gray-900 mb-4" style={{ fontFamily: 'Inter, sans-serif' }}>
                   Flight Information
                 </h3>
-                <div className="space-y-4">
+                <div className="space-y-3">
                   <div className="flex justify-between">
-                    <span className="text-gray-600 text-base" style={{ fontFamily: 'Source Sans Pro, sans-serif' }}>Flight Number:</span>
-                    <span className="font-medium text-base" style={{ fontFamily: 'Source Sans Pro, sans-serif' }}>{selectedTrip.flightNumber}</span>
+                    <span className="text-gray-600" style={{ fontFamily: 'Source Sans Pro, sans-serif' }}>Flight Number:</span>
+                    <span className="font-medium" style={{ fontFamily: 'Source Sans Pro, sans-serif' }}>{selectedTrip.flightNumber}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-600 text-base" style={{ fontFamily: 'Source Sans Pro, sans-serif' }}>Aircraft:</span>
-                    <span className="font-medium text-base" style={{ fontFamily: 'Source Sans Pro, sans-serif' }}>{selectedTrip.aircraft}</span>
+                    <span className="text-gray-600" style={{ fontFamily: 'Source Sans Pro, sans-serif' }}>Aircraft:</span>
+                    <span className="font-medium" style={{ fontFamily: 'Source Sans Pro, sans-serif' }}>{selectedTrip.aircraft}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-600 text-base" style={{ fontFamily: 'Source Sans Pro, sans-serif' }}>Departure:</span>
-                    <span className="font-medium text-base" style={{ fontFamily: 'Source Sans Pro, sans-serif' }}>{selectedTrip.departureTime}</span>
+                    <span className="text-gray-600" style={{ fontFamily: 'Source Sans Pro, sans-serif' }}>Departure:</span>
+                    <span className="font-medium" style={{ fontFamily: 'Source Sans Pro, sans-serif' }}>{selectedTrip.departureTime}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-600 text-base" style={{ fontFamily: 'Source Sans Pro, sans-serif' }}>Arrival:</span>
-                    <span className="font-medium text-base" style={{ fontFamily: 'Source Sans Pro, sans-serif' }}>{selectedTrip.arrivalTime}</span>
+                    <span className="text-gray-600" style={{ fontFamily: 'Source Sans Pro, sans-serif' }}>Arrival:</span>
+                    <span className="font-medium" style={{ fontFamily: 'Source Sans Pro, sans-serif' }}>{selectedTrip.arrivalTime}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-600 text-base" style={{ fontFamily: 'Source Sans Pro, sans-serif' }}>From:</span>
-                    <span className="font-medium text-base" style={{ fontFamily: 'Source Sans Pro, sans-serif' }}>{selectedTrip.departureAirport}</span>
+                    <span className="text-gray-600" style={{ fontFamily: 'Source Sans Pro, sans-serif' }}>From:</span>
+                    <span className="font-medium" style={{ fontFamily: 'Source Sans Pro, sans-serif' }}>{selectedTrip.departureAirport}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-600 text-base" style={{ fontFamily: 'Source Sans Pro, sans-serif' }}>To:</span>
-                    <span className="font-medium text-base" style={{ fontFamily: 'Source Sans Pro, sans-serif' }}>{selectedTrip.arrivalAirport}</span>
+                    <span className="text-gray-600" style={{ fontFamily: 'Source Sans Pro, sans-serif' }}>To:</span>
+                    <span className="font-medium" style={{ fontFamily: 'Source Sans Pro, sans-serif' }}>{selectedTrip.arrivalAirport}</span>
                   </div>
                   {selectedTrip.gate && (
                     <div className="flex justify-between">
-                      <span className="text-gray-600 text-base" style={{ fontFamily: 'Source Sans Pro, sans-serif' }}>Gate:</span>
-                      <span className="font-medium text-base" style={{ fontFamily: 'Source Sans Pro, sans-serif' }}>{selectedTrip.gate}</span>
+                      <span className="text-gray-600" style={{ fontFamily: 'Source Sans Pro, sans-serif' }}>Gate:</span>
+                      <span className="font-medium" style={{ fontFamily: 'Source Sans Pro, sans-serif' }}>{selectedTrip.gate}</span>
                     </div>
                   )}
                 </div>
@@ -446,33 +469,33 @@ const TripsView: React.FC = () => {
               {/* Booking Details */}
               <div style={{
                 backgroundColor: 'rgba(5, 117, 138, 0.05)',
-                borderRadius: '12px',
-                padding: '28px',
+                borderRadius: '8px',
+                padding: '20px',
                 border: '1px solid rgba(5, 117, 138, 0.2)'
               }}>
-                <h3 className="text-xl font-semibold text-gray-900 mb-6" style={{ fontFamily: 'Inter, sans-serif' }}>
+                <h3 className="text-lg font-semibold text-gray-900 mb-4" style={{ fontFamily: 'Inter, sans-serif' }}>
                   Booking Details
                 </h3>
-                <div className="space-y-4">
+                <div className="space-y-3">
                   <div className="flex justify-between">
-                    <span className="text-gray-600 text-base" style={{ fontFamily: 'Source Sans Pro, sans-serif' }}>Confirmation Code:</span>
-                    <span className="font-medium font-mono text-base" style={{ fontFamily: 'Source Sans Pro, sans-serif' }}>{selectedTrip.confirmationCode}</span>
+                    <span className="text-gray-600" style={{ fontFamily: 'Source Sans Pro, sans-serif' }}>Confirmation Code:</span>
+                    <span className="font-medium font-mono" style={{ fontFamily: 'Source Sans Pro, sans-serif' }}>{selectedTrip.confirmationCode}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-600 text-base" style={{ fontFamily: 'Source Sans Pro, sans-serif' }}>Seat Number:</span>
-                    <span className="font-medium text-base" style={{ fontFamily: 'Source Sans Pro, sans-serif' }}>{selectedTrip.seatNumber}</span>
+                    <span className="text-gray-600" style={{ fontFamily: 'Source Sans Pro, sans-serif' }}>Seat Number:</span>
+                    <span className="font-medium" style={{ fontFamily: 'Source Sans Pro, sans-serif' }}>{selectedTrip.seatNumber}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-600 text-base" style={{ fontFamily: 'Source Sans Pro, sans-serif' }}>Total Cost:</span>
-                    <span className="font-medium text-gray-900 text-base" style={{ fontFamily: 'Source Sans Pro, sans-serif' }}>{selectedTrip.totalCost}</span>
+                    <span className="text-gray-600" style={{ fontFamily: 'Source Sans Pro, sans-serif' }}>Total Cost:</span>
+                    <span className="font-medium text-gray-900" style={{ fontFamily: 'Source Sans Pro, sans-serif' }}>{selectedTrip.totalCost}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-600 text-base" style={{ fontFamily: 'Source Sans Pro, sans-serif' }}>Miles Earned:</span>
-                    <span className="font-medium text-teal-600 text-base" style={{ fontFamily: 'Source Sans Pro, sans-serif' }}>{selectedTrip.milesEarned?.toLocaleString()}</span>
+                    <span className="text-gray-600" style={{ fontFamily: 'Source Sans Pro, sans-serif' }}>Miles Earned:</span>
+                    <span className="font-medium text-teal-600" style={{ fontFamily: 'Source Sans Pro, sans-serif' }}>{selectedTrip.milesEarned?.toLocaleString()}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-600 text-base" style={{ fontFamily: 'Source Sans Pro, sans-serif' }}>Baggage:</span>
-                    <span className="font-medium text-base" style={{ fontFamily: 'Source Sans Pro, sans-serif' }}>{selectedTrip.baggageInfo}</span>
+                    <span className="text-gray-600" style={{ fontFamily: 'Source Sans Pro, sans-serif' }}>Baggage:</span>
+                    <span className="font-medium" style={{ fontFamily: 'Source Sans Pro, sans-serif' }}>{selectedTrip.baggageInfo}</span>
                   </div>
                 </div>
               </div>
@@ -480,20 +503,20 @@ const TripsView: React.FC = () => {
 
             {/* Special Services */}
             {selectedTrip.specialServices && selectedTrip.specialServices.length > 0 && (
-              <div className="mt-8">
-                <h3 className="text-xl font-semibold text-gray-900 mb-4" style={{ fontFamily: 'Inter, sans-serif' }}>
+              <div className="mt-6">
+                <h3 className="text-lg font-semibold text-gray-900 mb-3" style={{ fontFamily: 'Inter, sans-serif' }}>
                   Special Services
                 </h3>
-                <div className="flex flex-wrap gap-3">
+                <div className="flex flex-wrap gap-2">
                   {selectedTrip.specialServices.map((service, index) => (
                     <span 
                       key={index}
                       style={{
                         backgroundColor: 'rgba(5, 117, 138, 0.1)',
                         color: '#05758a',
-                        padding: '8px 16px',
+                        padding: '4px 12px',
                         borderRadius: '9999px',
-                        fontSize: '16px',
+                        fontSize: '14px',
                         fontWeight: '500',
                         fontFamily: 'Source Sans Pro, sans-serif'
                       }}
@@ -506,16 +529,16 @@ const TripsView: React.FC = () => {
             )}
 
             {/* Action Buttons */}
-            <div className="flex justify-end space-x-4 mt-10 pt-8 border-t border-gray-200">
+            <div className="flex justify-end space-x-3 mt-8 pt-6 border-t border-gray-200">
               <button
                 onClick={closeModal}
                 style={{
-                  padding: '12px 24px',
+                  padding: '8px 16px',
                   border: '1px solid #d1d5db',
-                  borderRadius: '8px',
+                  borderRadius: '6px',
                   backgroundColor: 'white',
                   color: '#374151',
-                  fontSize: '16px',
+                  fontSize: '14px',
                   fontWeight: '500',
                   cursor: 'pointer',
                   transition: 'all 0.2s ease',
@@ -535,12 +558,12 @@ const TripsView: React.FC = () => {
               {selectedTrip.status === 'Confirmed' && (
                 <button
                   style={{
-                    padding: '12px 24px',
+                    padding: '8px 16px',
                     backgroundColor: '#05758a',
                     color: 'white',
                     border: 'none',
-                    borderRadius: '8px',
-                    fontSize: '16px',
+                    borderRadius: '6px',
+                    fontSize: '14px',
                     fontWeight: '500',
                     cursor: 'pointer',
                     transition: 'background-color 0.2s ease',
