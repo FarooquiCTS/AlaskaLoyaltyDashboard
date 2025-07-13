@@ -9,6 +9,7 @@ interface CardProps {
   padding?: 'sm' | 'md' | 'lg';
   shadow?: boolean;
   hover?: boolean;
+  onClick?: () => void;
 }
 
 const Card: React.FC<CardProps> = ({
@@ -19,7 +20,8 @@ const Card: React.FC<CardProps> = ({
   variant = 'default',
   padding = 'md',
   shadow = true,
-  hover = false
+  hover = false,
+  onClick
 }) => {
   const getBackgroundStyle = () => {
     switch (variant) {
@@ -46,8 +48,8 @@ const Card: React.FC<CardProps> = ({
     border: variant === 'border' ? '2px solid #e5e7eb' : '1px solid #e5e7eb',
     padding: getPadding(),
     boxShadow: shadow ? '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)' : 'none',
-    transition: hover ? 'all 0.3s ease' : 'none',
-    cursor: hover ? 'pointer' : 'default',
+    transition: (hover || onClick) ? 'all 0.3s ease' : 'none',
+    cursor: (hover || onClick) ? 'pointer' : 'default',
     marginBottom: '24px',
     backgroundColor: 'white'
   };
@@ -56,11 +58,12 @@ const Card: React.FC<CardProps> = ({
     <div 
       style={cardStyle}
       className={className}
-      onMouseEnter={hover ? (e) => {
+      onClick={onClick}
+      onMouseEnter={(hover || onClick) ? (e) => {
         e.currentTarget.style.transform = 'translateY(-2px)';
         e.currentTarget.style.boxShadow = '0 8px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)';
       } : undefined}
-      onMouseLeave={hover ? (e) => {
+      onMouseLeave={(hover || onClick) ? (e) => {
         e.currentTarget.style.transform = 'translateY(0)';
         e.currentTarget.style.boxShadow = shadow ? '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)' : 'none';
       } : undefined}

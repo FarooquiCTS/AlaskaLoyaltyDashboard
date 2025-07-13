@@ -6,27 +6,35 @@ interface MetricCardProps {
   change: string;
   positive: boolean;
   icon?: string;
+  onClick?: () => void;
 }
 
-const MetricCard: React.FC<MetricCardProps> = ({ title, value, change, positive, icon }) => (
-  <div style={{
-    backgroundColor: 'white',
-    borderRadius: '12px',
-    padding: '24px',
-    boxShadow: '0 10px 25px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
-    border: '1px solid #e5e7eb',
-    transition: 'all 0.3s ease',
-    cursor: 'pointer',
-    background: 'linear-gradient(135deg, #ffffff 0%, #f8fafc 100%)'
-  }}
-  onMouseEnter={(e) => {
-    e.currentTarget.style.transform = 'translateY(-4px)';
-    e.currentTarget.style.boxShadow = '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)';
-  }}
-  onMouseLeave={(e) => {
-    e.currentTarget.style.transform = 'translateY(0)';
-    e.currentTarget.style.boxShadow = '0 10px 25px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)';
-  }}>
+const MetricCard: React.FC<MetricCardProps> = ({ title, value, change, positive, icon, onClick }) => (
+  <div 
+    style={{
+      backgroundColor: 'white',
+      borderRadius: '12px',
+      padding: '24px',
+      boxShadow: '0 10px 25px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+      border: '1px solid #e5e7eb',
+      transition: 'all 0.3s ease',
+      cursor: onClick ? 'pointer' : 'default',
+      background: 'linear-gradient(135deg, #ffffff 0%, #f8fafc 100%)'
+    }}
+    onClick={onClick}
+    onMouseEnter={(e) => {
+      if (onClick) {
+        e.currentTarget.style.transform = 'translateY(-4px)';
+        e.currentTarget.style.boxShadow = '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)';
+      }
+    }}
+    onMouseLeave={(e) => {
+      if (onClick) {
+        e.currentTarget.style.transform = 'translateY(0)';
+        e.currentTarget.style.boxShadow = '0 10px 25px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)';
+      }
+    }}
+  >
     <div style={{
       display: 'flex',
       alignItems: 'center',

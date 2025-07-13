@@ -35,6 +35,12 @@ const Navigation: React.FC<NavigationProps> = ({ activeView, setActiveView }) =>
             icon="🎯"
           />
           <NavButton
+            label="Book Flights"
+            isActive={activeView === 'flights'}
+            onClick={() => setActiveView('flights')}
+            icon="🛫"
+          />
+          <NavButton
             label="Trips"
             isActive={activeView === 'trips'}
             onClick={() => setActiveView('trips')}

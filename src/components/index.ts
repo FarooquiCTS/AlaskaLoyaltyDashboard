@@ -6,6 +6,8 @@ export { default as Navigation } from './Navigation';
 export { default as OffersView } from './OffersView';
 export { default as ProfileView } from './ProfileView';
 export { default as TripsView } from './TripsView';
+export { default as FlightSearchView } from './FlightSearchView';
+export { default as EliteStatusModal } from './EliteStatusModal';
 
 // Utility Components
 export { default as MetricCard } from './MetricCard';

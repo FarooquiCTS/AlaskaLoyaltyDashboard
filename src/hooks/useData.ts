@@ -5,8 +5,8 @@ import type { User, DashboardMetric, Achievement, Trip, Offer } from '../types';
 export const useUserData = () => {
   const [user, setUser] = useState<User>({
     name: 'Sarah Johnson',
-    loyaltyPoints: 24856,
-    eliteStatus: 'Gold',
+    loyaltyPoints: 4860,
+    eliteStatus: 'MVP',
     mileagePlanNumber: '562484576'
   });
 
@@ -33,7 +33,7 @@ export const useUserData = () => {
 // Hook for managing dashboard metrics
 export const useDashboardMetrics = () => {
   const [metrics, setMetrics] = useState<DashboardMetric[]>([
-    { title: 'Available Miles', value: '24,856', change: '+1,250' },
+    { title: 'Available Miles', value: '4,860', change: '+1,250' },
     { title: 'Lifetime Alaska Miles', value: '156,240', change: '+8,450' },
     { title: 'Elite Status', value: 'Gold', change: '2,344 to Platinum' }
   ]);

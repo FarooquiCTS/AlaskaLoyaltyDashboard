@@ -1,11 +1,7 @@
 import React, { useState } from 'react';
 import type { Offer, FlashOffer } from '../types';
 
-interface OffersViewProps {
-  onBookFlight?: () => void;
-}
-
-const OffersView: React.FC<OffersViewProps> = ({ onBookFlight }) => {
+const OffersView: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
 
   // Personalized offers based on user profile and behavior
@@ -162,187 +158,98 @@ const OffersView: React.FC<OffersViewProps> = ({ onBookFlight }) => {
 
       {/* Flash Offers */}
       <div style={{
-        background: 'linear-gradient(135deg, #0891b2 0%, #0e7490 100%)',
-        borderRadius: '16px',
-        padding: '32px',
+        background: 'linear-gradient(135deg, #dc2626 0%, #b91c1c 100%)',
+        borderRadius: '12px',
+        padding: '24px',
         color: 'white',
-        boxShadow: '0 20px 40px -12px rgba(8, 145, 178, 0.4)',
-        border: '1px solid rgba(255, 255, 255, 0.1)'
+        boxShadow: '0 10px 25px -3px rgba(220, 38, 38, 0.3)'
       }}>
-        <div style={{ display: 'flex', alignItems: 'center', marginBottom: '24px' }}>
-          <h2 style={{
-            fontSize: '24px',
-            fontWeight: 'bold',
-            color: 'white',
-            fontFamily: 'Inter, sans-serif',
-            margin: 0
-          }}>⚡ Flash Deals - Limited Time</h2>
-          <div style={{
-            marginLeft: '16px',
-            backgroundColor: 'rgba(255, 255, 255, 0.2)',
-            color: 'white',
-            padding: '4px 12px',
-            borderRadius: '20px',
-            fontSize: '12px',
-            fontWeight: '600',
-            fontFamily: 'Source Sans Pro, sans-serif'
-          }}>
-            🔥 URGENT
-          </div>
-        </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <h2 style={{
+          fontSize: '20px',
+          fontWeight: 'bold',
+          marginBottom: '16px',
+          color: 'white'
+        }}>⚡ Flash Deals - Limited Time</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {flashOffers.map((offer, index) => (
             <div key={index} style={{
-              background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.15) 100%)',
-              borderRadius: '16px',
-              padding: '28px',
-              backdropFilter: 'blur(20px)',
-              border: '1px solid rgba(255, 255, 255, 0.3)',
-              transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-              position: 'relative',
-              overflow: 'hidden'
+              backgroundColor: 'rgba(255, 255, 255, 0.15)',
+              borderRadius: '12px',
+              padding: '20px',
+              backdropFilter: 'blur(10px)',
+              border: '1px solid rgba(255, 255, 255, 0.2)',
+              transition: 'all 0.3s ease'
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.background = 'linear-gradient(135deg, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.25) 100%)';
-              e.currentTarget.style.transform = 'translateY(-8px) scale(1.02)';
-              e.currentTarget.style.boxShadow = '0 25px 50px -12px rgba(0, 0, 0, 0.4)';
+              e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.25)';
+              e.currentTarget.style.transform = 'translateY(-2px)';
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.background = 'linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.15) 100%)';
-              e.currentTarget.style.transform = 'translateY(0) scale(1)';
-              e.currentTarget.style.boxShadow = 'none';
+              e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.15)';
+              e.currentTarget.style.transform = 'translateY(0)';
             }}>
-              
-              {/* Animated background element */}
-              <div style={{
-                position: 'absolute',
-                top: '-50%',
-                right: '-50%',
-                width: '100%',
-                height: '100%',
-                background: 'linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent)',
-                transform: 'rotate(45deg)',
-                pointerEvents: 'none'
-              }} />
-
-              <div style={{ position: 'relative', zIndex: 1 }}>
-                <div className="flex justify-between items-start mb-4">
-                  <h3 style={{
-                    fontWeight: '700',
-                    fontSize: '20px',
-                    color: 'white',
-                    fontFamily: 'Inter, sans-serif',
-                    lineHeight: '1.3'
-                  }}>{offer.title}</h3>
-                  <div style={{
-                    background: 'linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%)',
-                    color: 'white',
-                    padding: '6px 16px',
-                    borderRadius: '25px',
-                    fontSize: '14px',
-                    fontWeight: '700',
-                    fontFamily: 'Inter, sans-serif',
-                    boxShadow: '0 4px 12px rgba(251, 191, 36, 0.4)',
-                    textShadow: '0 1px 2px rgba(0, 0, 0, 0.2)'
-                  }}>
-                    {offer.discount}
-                  </div>
-                </div>
-                
-                <p style={{
-                  color: 'rgba(255, 255, 255, 0.95)',
-                  marginBottom: '20px',
-                  fontSize: '15px',
-                  lineHeight: '1.5',
-                  fontFamily: 'Source Sans Pro, sans-serif'
-                }}>{offer.description}</p>
-                
+              <div className="flex justify-between items-start mb-3">
+                <h3 style={{
+                  fontWeight: 'bold',
+                  fontSize: '18px',
+                  color: 'white'
+                }}>{offer.title}</h3>
                 <div style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  marginBottom: '24px',
-                  padding: '16px 0',
-                  borderTop: '1px solid rgba(255, 255, 255, 0.2)',
-                  borderBottom: '1px solid rgba(255, 255, 255, 0.2)'
+                  backgroundColor: '#fbbf24',
+                  color: '#92400e',
+                  padding: '4px 12px',
+                  borderRadius: '20px',
+                  fontSize: '12px',
+                  fontWeight: 'bold'
                 }}>
-                  <div>
-                    <div style={{ 
-                      fontSize: '13px', 
-                      color: 'rgba(255, 255, 255, 0.8)',
-                      marginBottom: '6px',
-                      fontFamily: 'Source Sans Pro, sans-serif'
-                    }}>
-                      {offer.routes}
-                    </div>
-                    <div style={{ fontSize: '18px', fontWeight: '700', fontFamily: 'Inter, sans-serif' }}>
-                      <span style={{ 
-                        textDecoration: 'line-through', 
-                        fontSize: '16px', 
-                        opacity: 0.7,
-                        marginRight: '8px'
-                      }}>
-                        {offer.originalPrice}
-                      </span>
-                      <span style={{ 
-                        color: '#fbbf24',
-                        textShadow: '0 1px 2px rgba(0, 0, 0, 0.2)'
-                      }}>{offer.salePrice}</span>
-                    </div>
+                  {offer.discount}
+                </div>
+              </div>
+              <p style={{
+                color: 'rgba(255, 255, 255, 0.9)',
+                marginBottom: '12px',
+                fontSize: '14px'
+              }}>{offer.description}</p>
+              <div style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                marginBottom: '16px'
+              }}>
+                <div>
+                  <div style={{ fontSize: '12px', color: 'rgba(255, 255, 255, 0.7)' }}>
+                    {offer.routes}
                   </div>
-                  <div style={{
-                    textAlign: 'right'
-                  }}>
-                    <div style={{
-                      fontSize: '12px',
-                      color: 'rgba(255, 255, 255, 0.8)',
-                      marginBottom: '4px',
-                      fontFamily: 'Source Sans Pro, sans-serif'
-                    }}>Time left</div>
-                    <div style={{
-                      fontSize: '16px',
-                      color: '#fbbf24',
-                      fontWeight: '700',
-                      fontFamily: 'Inter, sans-serif',
-                      textShadow: '0 1px 2px rgba(0, 0, 0, 0.2)'
-                    }}>
-                      ⏰ {offer.timeLeft}
-                    </div>
+                  <div style={{ fontSize: '16px', fontWeight: 'bold' }}>
+                    <span style={{ textDecoration: 'line-through', fontSize: '14px', opacity: 0.7 }}>
+                      {offer.originalPrice}
+                    </span>
+                    <span style={{ marginLeft: '8px' }}>{offer.salePrice}</span>
                   </div>
                 </div>
-                
-                <button 
-                  onClick={onBookFlight}
-                  style={{
-                  width: '100%',
-                  background: 'linear-gradient(135deg, #ffffff 0%, #f8fafc 100%)',
-                  color: '#dc2626',
-                  border: 'none',
-                  borderRadius: '12px',
-                  padding: '16px 24px',
-                  fontSize: '16px',
-                  fontWeight: '700',
-                  cursor: 'pointer',
-                  transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                  fontFamily: 'Inter, sans-serif',
-                  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
-                  position: 'relative',
-                  overflow: 'hidden'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)';
-                  e.currentTarget.style.transform = 'translateY(-2px)';
-                  e.currentTarget.style.boxShadow = '0 8px 24px rgba(0, 0, 0, 0.25)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = 'linear-gradient(135deg, #ffffff 0%, #f8fafc 100%)';
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
+                <div style={{
+                  fontSize: '14px',
+                  color: '#fbbf24',
+                  fontWeight: 'bold'
                 }}>
-                  Book Flash Deal Now
-                </button>
+                  ⏰ {offer.timeLeft}
+                </div>
               </div>
+              <button style={{
+                width: '100%',
+                backgroundColor: 'white',
+                color: '#dc2626',
+                border: 'none',
+                borderRadius: '8px',
+                padding: '12px',
+                fontWeight: 'bold',
+                cursor: 'pointer',
+                transition: 'all 0.2s ease'
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f3f4f6'}
+              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'white'}>
+                Book Flash Deal
+              </button>
             </div>
           ))}
         </div>
@@ -456,13 +363,7 @@ const OffersView: React.FC<OffersViewProps> = ({ onBookFlight }) => {
                   </div>
                 </div>
 
-                <button 
-                  onClick={
-                    offer.action?.includes('Flight') || offer.action === 'Search Flights' || offer.action === 'Book Now' 
-                      ? onBookFlight 
-                      : undefined
-                  }
-                  style={{
+                <button style={{
                   width: '100%',
                   backgroundColor: '#05758a',
                   color: 'white',

@@ -54,6 +54,9 @@ export interface Offer {
   description: string;
   type: string;
   action: string;
+  personalization?: string;
+  validUntil?: string;
+  savings?: string;
 }
 
 export interface FlashOffer {
@@ -61,6 +64,9 @@ export interface FlashOffer {
   description: string;
   discount: string;
   timeLeft: string;
+  routes?: string;
+  originalPrice?: string;
+  salePrice?: string;
 }
 
 export interface Challenge {
@@ -78,4 +84,48 @@ export interface PriceAlert {
   currentPrice: string;
   targetPrice: string;
   status: string;
+}
+
+export interface EliteStatus {
+  level: string;
+  miles: number;
+  nextLevel?: string;
+  milesToNext?: number;
+  benefits: string[];
+  oneworldStatus?: string;
+}
+
+export interface Milestone {
+  id: number;
+  miles: number;
+  title: string;
+  type: 'milestone' | 'elite_status';
+  perks?: MilestonePerk[];
+  benefits?: string[];
+  isCompleted: boolean;
+  isActive?: boolean;
+}
+
+export interface MilestonePerk {
+  id: string;
+  description: string;
+  selected?: boolean;
+}
+
+export interface MileageActivity {
+  id: number;
+  date: string;
+  description: string;
+  miles: number;
+  type: 'earned' | 'redeemed' | 'expired';
+  source: string;
+}
+
+export interface EliteStatusDetails {
+  currentLevel: string;
+  currentMiles: number;
+  lifetimeMiles: number;
+  nextMilestone: Milestone | null;
+  milesToNextMilestone: number;
+  allMilestones: Milestone[];
 }

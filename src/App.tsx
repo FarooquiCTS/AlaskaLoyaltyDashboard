@@ -6,7 +6,8 @@ import {
   DashboardView,
   OffersView,
   TripsView,
-  ProfileView
+  ProfileView,
+  FlightSearchView
 } from './components';
 import { useUserData, useLocalStorage } from './hooks';
 
@@ -30,20 +31,26 @@ const App: React.FC = () => {
   const renderView = () => {
     switch (activeView) {
       case 'dashboard':
-        return <DashboardView user={user} />;
+        return <DashboardView user={user} onBookFlight={handleBookFlight} />;
       case 'offers':
-        return <OffersView />;
+        return <OffersView onBookFlight={handleBookFlight} />;
       case 'trips':
         return <TripsView />;
       case 'profile':
         return <ProfileView user={user} />;
+      case 'flights':
+        return <FlightSearchView />;
       default:
-        return <DashboardView user={user} />;
+        return <DashboardView user={user} onBookFlight={handleBookFlight} />;
     }
   };
 
   const handleViewProfile = () => {
     setActiveView('profile');
+  };
+
+  const handleBookFlight = () => {
+    setActiveView('flights');
   };
 
   return (
