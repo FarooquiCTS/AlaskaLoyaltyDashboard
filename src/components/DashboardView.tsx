@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import type { DashboardMetric, Achievement, User, EliteStatusDetails, MileageActivity } from '../types';
+import type { DashboardMetric, User, EliteStatusDetails, MileageActivity } from '../types';
 import MetricCard from './MetricCard';
 import ProgressBar from './ProgressBar';
 import Card from './Card';
@@ -10,7 +10,7 @@ interface DashboardViewProps {
   onBookFlight?: () => void;
 }
 
-const DashboardView: React.FC<DashboardViewProps> = ({ user, onBookFlight }) => {
+const DashboardView: React.FC<DashboardViewProps> = ({ onBookFlight }) => {
   const [showEliteStatusModal, setShowEliteStatusModal] = useState(false);
   const [showMileageActivity, setShowMileageActivity] = useState(false);
   const [showMilestones, setShowMilestones] = useState(false);
@@ -18,7 +18,7 @@ const DashboardView: React.FC<DashboardViewProps> = ({ user, onBookFlight }) => 
   const dashboardMetrics: DashboardMetric[] = [
     { title: 'Available Miles', value: '4,860', change: '+1,250' },
     { title: 'Lifetime Alaska Miles', value: '21,000', change: '+8,450' },
-    { title: 'Elite Status', value: 'MVP', change: 'View Benefits & Details' }
+    { title: 'Current Elite Status', value: 'MVP', change: 'View Benefits & Details' }
   ];
 
   // Elite Status Data
@@ -274,12 +274,11 @@ const DashboardView: React.FC<DashboardViewProps> = ({ user, onBookFlight }) => 
     setShowMilestones(false);
   };
 
-  const achievements: Achievement[] = [
-    { title: 'MVP Status Earned', description: 'Achieved MVP elite status', icon: '🎖️', date: 'Jan 2025' },
-    { title: '20K Mile Milestone', description: 'Reached 20,000 lifetime miles', icon: '✈️', date: 'Dec 2024' },
-    { title: 'Weekend Warrior Progress', description: 'Completed 2 weekend trips', icon: '🏃‍♂️', date: 'Nov 2024' },
-    { title: 'International Flight', description: 'Booked London trip', icon: '�', date: 'Nov 2024' }
-  ];
+  // const achievements: Achievement[] = [
+  //   { title: 'MVP Status Earned', description: 'Achieved MVP elite status', icon: '🎖️', date: 'Jan 2025' },
+  //   { title: '20K Mile Milestone', description: 'Reached 20,000 lifetime miles', icon: '✈️', date: 'Dec 2024' },
+  //   { title: 'Weekend Warrior Progress', description: 'Completed 2 weekend trips', icon: '🏃‍♂️', date: 'Nov 2024' },
+  // ];
 
   return (
     <div style={{
@@ -293,13 +292,6 @@ const DashboardView: React.FC<DashboardViewProps> = ({ user, onBookFlight }) => 
         maxWidth: '1152px',
         margin: '0 auto'
       }}>
-        <h1 style={{
-          fontSize: '36px',
-          fontWeight: 'bold',
-          color: '#111827',
-          marginBottom: '32px',
-          textAlign: 'center'
-        }}>Welcome back, {user.name}!</h1>
         
         {/* Quick Stats Section */}
         <Card title="Your Alaska Account at a Glance" variant="gradient">
@@ -319,14 +311,800 @@ const DashboardView: React.FC<DashboardViewProps> = ({ user, onBookFlight }) => 
                       metric.title === 'Lifetime Alaska Miles' ? '✈️' :
                       metric.title.includes('Status') ? '⭐' : 
                       metric.title.includes('Savings') ? '💰' : '🎯'}
-                onClick={metric.title === 'Elite Status' ? handleEliteStatusClick :
+                onClick={metric.title === 'Current Elite Status' ? handleEliteStatusClick :
                         metric.title === 'Available Miles' ? handleAvailableMilesClick : undefined}
               />
             ))}
           </div>
         </Card>
 
-        {/* Elite Status Progress */}
+        {/* Trip Cards Row with Elite Status Progress Circle */}
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(3, 1fr)',
+          gap: '24px',
+          marginBottom: '24px'
+        }}>
+          {/* Circular Progress for Elite Qualifying Miles */}
+          <Card 
+            title="⭐ Elite Status Progress"
+            subtitle="Your progress towards MVP Gold"
+            variant="gradient"
+          >
+            <div style={{
+              padding: '20px',
+              background: 'linear-gradient(135deg, rgba(5, 117, 138, 0.1) 0%, rgba(5, 117, 138, 0.05) 100%)',
+              borderRadius: '12px',
+              border: '1px solid rgba(5, 117, 138, 0.2)',
+              height: '280px',
+              display: 'flex',
+              flexDirection: 'column',
+              position: 'relative',
+              overflow: 'hidden'
+            }}>
+              {/* Background decoration */}
+              <div style={{
+                position: 'absolute',
+                top: '-20px',
+                right: '-20px',
+                width: '120px',
+                height: '120px',
+                background: 'radial-gradient(circle, rgba(5, 117, 138, 0.2) 0%, rgba(5, 117, 138, 0.05) 70%)',
+                borderRadius: '50%',
+                zIndex: 0
+              }} />
+              
+              <div style={{
+                display: 'flex', 
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                position: 'relative',
+                zIndex: 1,
+                flex: 1
+              }}>
+                <div style={{ position: 'relative', width: '160px', height: '160px' }}>
+                  {/* Background Circle */}
+                  <div style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    borderRadius: '50%',
+                    background: 'conic-gradient(#e5e7eb 0% 100%)',
+                    boxShadow: '0 4px 8px rgba(0,0,0,0.05), inset 0 0 0 1px rgba(5, 117, 138, 0.2)'
+                  }} />
+                  
+                  {/* Progress Circle - 70% complete */}
+                  <div style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    borderRadius: '50%',
+                    background: 'conic-gradient(#05758a 0% 70%, transparent 70% 100%)',
+                    transform: 'rotate(-90deg)'
+                  }} />
+                  
+                  {/* Inner Circle (creates donut hole) */}
+                  <div style={{
+                    position: 'absolute',
+                    top: '10%',
+                    left: '10%',
+                    width: '80%',
+                    height: '80%',
+                    borderRadius: '50%',
+                    background: 'white',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    boxShadow: 'inset 0 0 8px rgba(5, 117, 138, 0.1)'
+                  }}>
+                    <div style={{ 
+                      fontSize: '36px',
+                      fontWeight: '700',
+                      color: '#05758a'
+                    }}>70%</div>
+                    <div style={{ 
+                      fontSize: '13px',
+                      color: '#6b7280',
+                      textAlign: 'center',
+                      marginTop: '4px'
+                    }}>to MVP Gold</div>
+                  </div>
+                </div>
+                
+                <div style={{ 
+                  marginTop: '16px',
+                  textAlign: 'center'
+                }}>
+                  <div style={{
+                    fontSize: '16px',
+                    fontWeight: '600',
+                    color: '#05758a',
+                    marginBottom: '8px'
+                  }}>✈️ Elite Qualifying Miles</div>
+                  <div style={{
+                    fontSize: '14px',
+                    color: '#374151',
+                    marginBottom: '4px',
+                    fontWeight: '500'
+                  }}>21,000 / 30,000 miles</div>
+                  <div style={{
+                    fontSize: '14px',
+                    color: '#059669',
+                    fontWeight: '500'
+                  }}>🎯 Just 9,000 miles to go!</div>
+                </div>
+              </div>
+              
+              {/* Bottom info - matches format of other cards */}
+              <div style={{
+                marginTop: '12px',
+                padding: '8px',
+                backgroundColor: 'rgba(5, 117, 138, 0.1)',
+                borderRadius: '8px',
+                textAlign: 'center',
+                position: 'relative',
+                zIndex: 1
+              }}>
+                <div style={{
+                  fontSize: '12px',
+                  color: '#05758a',
+                  fontWeight: '500',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '6px'
+                }}>
+                  <span>⭐</span> You've earned 3 of 7 elite benefits
+                </div>
+              </div>
+            </div>
+          </Card>
+
+          {/* My Next Trip Card - Keep as is */}
+          <Card 
+            title="✈️ My Next Trip"
+            subtitle="Your upcoming Dubai adventure"
+            variant="gradient"
+          >
+            <div style={{
+              padding: '20px',
+              background: 'linear-gradient(135deg, rgba(5, 117, 138, 0.1) 0%, rgba(5, 117, 138, 0.05) 100%)',
+              borderRadius: '12px',
+              border: '1px solid rgba(5, 117, 138, 0.2)',
+              height: '280px',
+              display: 'flex',
+              flexDirection: 'column',
+              position: 'relative',
+              overflow: 'hidden'
+            }}>
+              {/* Background decoration */}
+              <div style={{
+                position: 'absolute',
+                top: '-20px',
+                right: '-20px',
+                width: '120px',
+                height: '120px',
+                background: 'radial-gradient(circle, rgba(5, 117, 138, 0.2) 0%, rgba(5, 117, 138, 0.05) 70%)',
+                borderRadius: '50%',
+                zIndex: 0
+              }} />
+              
+              {/* Trip Header */}
+              <div style={{
+                marginBottom: '16px',
+                position: 'relative',
+                zIndex: 1
+              }}>
+                <div style={{
+                  fontSize: '28px',
+                  fontWeight: '700',
+                  color: '#05758a',
+                  marginBottom: '8px'
+                }}>Dubai</div>
+                <div style={{
+                  fontSize: '16px',
+                  fontWeight: '600',
+                  color: '#dc2626',
+                  marginBottom: '4px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px'
+                }}>
+                  <span style={{ fontSize: '20px' }}>⏰</span>
+                  3 days to go!
+                </div>
+                <div style={{
+                  fontSize: '14px',
+                  color: '#4b5563',
+                  fontStyle: 'italic'
+                }}>July 20-27, 2025 • 7 nights</div>
+              </div>
+              
+              {/* Flight Details */}
+              <div style={{ 
+                position: 'relative', 
+                zIndex: 1, 
+                flex: 1,
+                backgroundColor: 'rgba(5, 117, 138, 0.03)',
+                padding: '4px 0',
+                borderRadius: '8px',
+                marginBottom: '12px'
+              }}>
+                <div style={{
+                  fontSize: '15px',
+                  fontWeight: '700',
+                  color: '#05758a',
+                  marginBottom: '12px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px'
+                }}>
+                  <span>✈️</span> Flight Details:
+                </div>
+                <div style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '8px'
+                }}>
+                  {[
+                    { label: 'Outbound', details: 'AS 1246 • SEA → DXB', time: 'July 20, 10:45 AM' },
+                    { label: 'Return', details: 'AS 1247 • DXB → SEA', time: 'July 27, 2:30 PM' },
+                    { label: 'Seat', details: '12A (Window, Premium Class)', time: 'Meal preference saved' }
+                  ].map((item, index) => (
+                    <div key={index} style={{
+                      fontSize: '13px',
+                      color: '#374151',
+                      padding: '10px 12px',
+                      backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                      borderRadius: '10px',
+                      border: '1px solid rgba(5, 117, 138, 0.2)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '10px',
+                      transition: 'all 0.2s ease',
+                      cursor: 'pointer',
+                      boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.transform = 'translateX(4px)';
+                      e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 1)';
+                      e.currentTarget.style.boxShadow = '0 4px 8px rgba(0,0,0,0.1)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform = 'translateX(0)';
+                      e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.9)';
+                      e.currentTarget.style.boxShadow = '0 2px 4px rgba(0,0,0,0.05)';
+                    }}>
+                      <div>
+                        <div style={{
+                          fontWeight: '600',
+                          color: '#05758a',
+                          marginBottom: '2px'
+                        }}>{item.label}</div>
+                        <div style={{
+                          fontSize: '12px',
+                          color: '#111827',
+                        }}>{item.details}</div>
+                        <div style={{
+                          fontSize: '11px',
+                          color: '#6b7280',
+                          opacity: 0.8
+                        }}>{item.time}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              
+              {/* Bottom info */}
+              <div style={{
+                marginTop: '12px',
+                padding: '8px',
+                backgroundColor: 'rgba(5, 117, 138, 0.1)',
+                borderRadius: '8px',
+                textAlign: 'center',
+                position: 'relative',
+                zIndex: 1
+              }}>
+                <div style={{
+                  fontSize: '12px',
+                  color: '#059669',
+                  fontWeight: '500',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '6px'
+                }}>
+                  <span>✅</span> Check-in opens in 48 hours
+                </div>
+              </div>
+            </div>
+          </Card>
+
+          {/* Destination Snapshot Card - Keep as is */}
+          <Card 
+            title="🌍 Destination Snapshot"
+            subtitle="Dubai awaits you"
+            variant="gradient"
+          >
+            <div style={{
+              padding: '20px',
+              background: 'linear-gradient(135deg, rgba(251, 191, 36, 0.15) 0%, rgba(217, 119, 6, 0.08) 100%)',
+              borderRadius: '12px',
+              border: '1px solid rgba(251, 191, 36, 0.3)',
+              height: '280px',
+              display: 'flex',
+              flexDirection: 'column',
+              position: 'relative',
+              overflow: 'hidden'
+            }}>
+              {/* Background decoration */}
+              <div style={{
+                position: 'absolute',
+                top: '-20px',
+                right: '-20px',
+                width: '120px',
+                height: '120px',
+                background: 'radial-gradient(circle, rgba(251, 191, 36, 0.2) 0%, rgba(251, 191, 36, 0.05) 70%)',
+                borderRadius: '50%',
+                zIndex: 0
+              }} />
+              
+              {/* Weather Section */}
+              <div style={{
+                marginBottom: '16px',
+                position: 'relative',
+                zIndex: 1,
+                display: 'flex',
+                alignItems: 'center',
+                gap: '16px'
+              }}>
+                <div style={{
+                  fontSize: '48px',
+                  filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.1))'
+                }}>☀️</div>
+                <div>
+                  <div style={{
+                    fontSize: '28px',
+                    fontWeight: '700',
+                    color: '#d97706',
+                    marginBottom: '4px'
+                  }}>32°C</div>
+                  <div style={{
+                    fontSize: '14px',
+                    color: '#92400e',
+                    fontWeight: '500',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '6px'
+                  }}>
+                    <span style={{ fontSize: '14px' }}>📍</span>
+                    Dubai, UAE
+                  </div>
+                  <div style={{
+                    fontSize: '12px',
+                    color: '#b45309',
+                    fontStyle: 'italic'
+                  }}>Perfect weather for exploring!</div>
+                </div>
+              </div>
+              
+              {/* Top Sights Section */}
+              <div style={{ 
+                position: 'relative', 
+                zIndex: 1, 
+                flex: 1,
+                // Remove overflow: 'auto' and maxHeight
+              }}>
+                <div style={{
+                  fontSize: '15px',
+                  fontWeight: '700',
+                  color: '#92400e',
+                  marginBottom: '12px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  // Remove position: 'sticky' since it's no longer needed
+                  backgroundColor: 'rgba(251, 191, 36, 0.08)',
+                  padding: '4px 0',
+                  zIndex: 2
+                }}>
+                  <span>🎯</span> Must-see attractions:
+                </div>
+                <div style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '8px',
+                  // Remove paddingRight for scrollbar
+                }}>
+                  {[
+                    {
+                      name: 'Burj Khalifa',
+                      icon: '🏗️',
+                      desc: 'World\'s tallest building'
+                    }, 
+                    {
+                      name: 'Dubai Mall',
+                      icon: '🛍️',
+                      desc: 'Luxury shopping paradise'
+                    }, 
+                    {
+                      name: 'Palm Jumeirah',
+                      icon: '🏝️',
+                      desc: 'Iconic artificial island'
+                    }
+                  ].map((sight, index) => (
+                    <div key={index} style={{
+                      fontSize: '13px',
+                      color: '#374151',
+                      padding: '10px 12px',
+                      backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                      borderRadius: '10px',
+                      border: '1px solid rgba(251, 191, 36, 0.2)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '10px',
+                      transition: 'all 0.2s ease',
+                      cursor: 'pointer',
+                      boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.transform = 'translateX(4px)';
+                      e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 1)';
+                      e.currentTarget.style.boxShadow = '0 4px 8px rgba(0,0,0,0.1)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform = 'translateX(0)';
+                      e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.9)';
+                      e.currentTarget.style.boxShadow = '0 2px 4px rgba(0,0,0,0.05)';
+                    }}>
+                      <span style={{ fontSize: '16px' }}>{sight.icon}</span>
+                      <div>
+                        <div style={{
+                          fontWeight: '600',
+                          color: '#d97706',
+                          marginBottom: '2px'
+                        }}>{sight.name}</div>
+                        <div style={{
+                          fontSize: '11px',
+                          color: '#6b7280',
+                          opacity: 0.8
+                        }}>{sight.desc}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              
+              {/* Bottom info */}
+              <div style={{
+                marginTop: '12px',
+                padding: '8px',
+                backgroundColor: 'rgba(217, 119, 6, 0.1)',
+                borderRadius: '8px',
+                textAlign: 'center',
+                position: 'relative',
+                zIndex: 1
+              }}>
+                <div style={{
+                  fontSize: '12px',
+                  color: '#92400e',
+                  fontWeight: '500'
+                }}>Local time: GMT+4 • Currency: AED</div>
+              </div>
+            </div>
+          </Card>
+        </div>
+
+      {/* Your Recent Explorations - Price Drops */}
+        <Card title="🔍 Your Recent Explorations" subtitle="Great news! Prices have dropped on items you viewed" variant="gradient">
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+            gap: '20px'
+          }}>
+            {/* Flight Search */}
+            <div style={{
+              padding: '18px',
+              background: 'linear-gradient(135deg, rgba(5, 117, 138, 0.08) 0%, rgba(5, 117, 138, 0.03) 100%)',
+              borderRadius: '12px',
+              border: '1px solid rgba(5, 117, 138, 0.2)',
+              position: 'relative',
+              overflow: 'hidden',
+              cursor: 'pointer',
+              transition: 'all 0.3s ease'
+            }}
+            onClick={onBookFlight}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'translateY(-3px)';
+              e.currentTarget.style.boxShadow = '0 10px 20px -5px rgba(5, 117, 138, 0.2)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = 'none';
+            }}>
+              {/* Price Drop Badge */}
+              <div style={{
+                position: 'absolute',
+                top: '12px',
+                right: '12px',
+                backgroundColor: '#dc2626',
+                color: 'white',
+                padding: '4px 10px',
+                borderRadius: '16px',
+                fontSize: '12px',
+                fontWeight: '600',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '4px',
+                boxShadow: '0 2px 4px rgba(220, 38, 38, 0.3)'
+              }}>
+                <span>📉</span> Price Drop
+              </div>
+              
+              <div style={{ marginBottom: '14px' }}>
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  marginBottom: '6px'
+                }}>
+                  <span role="img" aria-label="flight" style={{ 
+                    fontSize: '22px',
+                    marginRight: '10px',
+                    filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.1))'
+                  }}>✈️</span>
+                  <span style={{
+                    fontWeight: '600',
+                    color: '#05758a',
+                    fontSize: '16px'
+                  }}>Flight</span>
+                </div>
+                <div style={{
+                  fontSize: '18px',
+                  fontWeight: '700',
+                  color: '#1f2937',
+                  marginBottom: '4px'
+                }}>Seattle → New York</div>
+                <div style={{
+                  fontSize: '14px',
+                  color: '#6b7280'
+                }}>Aug 15 - Aug 22 • Round-trip</div>
+              </div>
+              
+              <div style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'flex-end'
+              }}>
+                <div>
+                  <div style={{
+                    fontSize: '13px',
+                    color: '#9ca3af',
+                    textDecoration: 'line-through',
+                    marginBottom: '2px'
+                  }}>Was $499</div>
+                  <div style={{
+                    fontSize: '20px',
+                    fontWeight: '700',
+                    color: '#dc2626'
+                  }}>$399</div>
+                  <div style={{
+                    fontSize: '12px',
+                    color: '#059669',
+                    fontWeight: '500'
+                  }}>Save $100</div>
+                </div>
+                <button style={{
+                  backgroundColor: '#05758a',
+                  color: 'white',
+                  border: 'none',
+                  padding: '8px 14px',
+                  borderRadius: '8px',
+                  fontSize: '13px',
+                  fontWeight: '600',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease'
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#044556'}
+                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#05758a'}>
+                  Book Now
+                </button>
+              </div>
+            </div>
+            
+            {/* Hotel Search */}
+            <div style={{
+              padding: '18px',
+              background: 'linear-gradient(135deg, rgba(5, 150, 105, 0.08) 0%, rgba(5, 150, 105, 0.03) 100%)',
+              borderRadius: '12px',
+              border: '1px solid rgba(5, 150, 105, 0.2)',
+              position: 'relative',
+              overflow: 'hidden',
+              cursor: 'pointer',
+              transition: 'all 0.3s ease'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'translateY(-3px)';
+              e.currentTarget.style.boxShadow = '0 10px 20px -5px rgba(5, 150, 105, 0.2)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = 'none';
+            }}>
+              {/* Content for Hotel card */}
+              <div style={{
+                marginBottom: '14px'
+              }}>
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  marginBottom: '6px'
+                }}>
+                  <span role="img" aria-label="hotel" style={{ 
+                    fontSize: '22px',
+                    marginRight: '10px',
+                    filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.1))'
+                  }}>🏨</span>
+                  <span style={{
+                    fontWeight: '600',
+                    color: '#05758a',
+                    fontSize: '16px'
+                  }}>Hotel</span>
+                </div>
+                <div style={{
+                  fontSize: '18px',
+                  fontWeight: '700',
+                  color: '#1f2937',
+                  marginBottom: '4px'
+                }}>Marriott Seattle</div>
+                <div style={{
+                  fontSize: '14px',
+                  color: '#6b7280'
+                }}>Dec 10 - Dec 15 • 5 nights</div>
+              </div>
+              
+              <div style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'flex-end'
+              }}>
+                <div>
+                  <div style={{
+                    fontSize: '13px',
+                    color: '#9ca3af',
+                    textDecoration: 'line-through',
+                    marginBottom: '2px'
+                  }}>Was $899</div>
+                  <div style={{
+                    fontSize: '20px',
+                    fontWeight: '700',
+                    color: '#dc2626'
+                  }}>$699</div>
+                  <div style={{
+                    fontSize: '12px',
+                    color: '#059669',
+                    fontWeight: '500'
+                  }}>Save $200</div>
+                </div>
+                <button style={{
+                  backgroundColor: '#05758a',
+                  color: 'white',
+                  border: 'none',
+                  padding: '8px 14px',
+                  borderRadius: '8px',
+                  fontSize: '13px',
+                  fontWeight: '600',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease'
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#044556'}
+                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#05758a'}>
+                  Book Now
+                </button>
+              </div>
+            </div>
+            
+            {/* Car Rental Search */}
+            <div style={{
+              padding: '18px',
+              background: 'linear-gradient(135deg, rgba(217, 119, 6, 0.08) 0%, rgba(217, 119, 6, 0.03) 100%)',
+              borderRadius: '12px',
+              border: '1px solid rgba(217, 119, 6, 0.2)',
+              position: 'relative',
+              overflow: 'hidden',
+              cursor: 'pointer',
+              transition: 'all 0.3s ease'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'translateY(-3px)';
+              e.currentTarget.style.boxShadow = '0 10px 20px -5px rgba(217, 119, 6, 0.2)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = 'none';
+            }}>
+              {/* Content for Car Rental card */}
+              <div style={{
+                marginBottom: '14px'
+              }}>
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  marginBottom: '6px'
+                }}>
+                  <span role="img" aria-label="car" style={{ 
+                    fontSize: '22px',
+                    marginRight: '10px',
+                    filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.1))'
+                  }}>🚗</span>
+                  <span style={{
+                    fontWeight: '600',
+                    color: '#05758a',
+                    fontSize: '16px'
+                  }}>Car Rental</span>
+                </div>
+                <div style={{
+                  fontSize: '18px',
+                  fontWeight: '700',
+                  color: '#1f2937',
+                  marginBottom: '4px'
+                }}>Avis Seattle Airport</div>
+                <div style={{
+                  fontSize: '14px',
+                  color: '#6b7280'
+                }}>Dec 5 - Dec 10 • 5 days</div>
+              </div>
+              
+              <div style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'flex-end'
+              }}>
+                <div>
+                  <div style={{
+                    fontSize: '13px',
+                    color: '#9ca3af',
+                    textDecoration: 'line-through',
+                    marginBottom: '2px'
+                  }}>Was $299</div>
+                  <div style={{
+                    fontSize: '20px',
+                    fontWeight: '700',
+                    color: '#dc2626'
+                  }}>$199</div>
+                  <div style={{
+                    fontSize: '12px',
+                    color: '#059669',
+                    fontWeight: '500'
+                  }}>Save $100</div>
+                </div>
+                <button style={{
+                  backgroundColor: '#05758a',
+                  color: 'white',
+                  border: 'none',
+                  padding: '8px 14px',
+                  borderRadius: '8px',
+                  fontSize: '13px',
+                  fontWeight: '600',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease'
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#044556'}
+                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#05758a'}>
+                  Book Now
+                </button>
+              </div>
+            </div>
+          </div>
+        </Card>
+        
+        {/* Elite Status Progress - Keep as is */}
         <Card 
           title="🏆 Elite Status Progress" 
           subtitle="Track your journey to the next elite tier!" 
@@ -512,115 +1290,7 @@ const DashboardView: React.FC<DashboardViewProps> = ({ user, onBookFlight }) => 
           </div>
         </Card>
 
-        {/* Achievements Section */}
-        <Card title="🏅 Recent Achievements" variant="gradient">
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-            gap: '20px'
-          }}>
-            {achievements.map((achievement, index) => (
-              <div key={index} style={{
-                display: 'flex',
-                alignItems: 'center',
-                padding: '20px',
-                background: 'linear-gradient(135deg, rgba(5, 117, 138, 0.1) 0%, rgba(5, 117, 138, 0.05) 100%)',
-                borderRadius: '12px',
-                border: '1px solid rgba(5, 117, 138, 0.2)',
-                transition: 'all 0.3s ease',
-                cursor: 'pointer'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(-2px)';
-                e.currentTarget.style.boxShadow = '0 10px 25px -3px rgba(5, 117, 138, 0.3)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = 'none';
-              }}>
-                <div style={{
-                  fontSize: '32px',
-                  marginRight: '16px',
-                  filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.1))'
-                }}>{achievement.icon}</div>
-                <div>
-                  <h4 style={{
-                    fontWeight: '600',
-                    color: '#05758a',
-                    marginBottom: '4px',
-                    fontSize: '16px'
-                  }}>{achievement.title}</h4>
-                  <p style={{
-                    fontSize: '14px',
-                    color: '#6b7280',
-                    marginBottom: '6px'
-                  }}>{achievement.description}</p>
-                  <p style={{
-                    fontSize: '12px',
-                    color: '#05758a',
-                    fontWeight: '500',
-                    backgroundColor: 'rgba(255, 255, 255, 0.8)',
-                    padding: '2px 8px',
-                    borderRadius: '12px',
-                    display: 'inline-block'
-                  }}>{achievement.date}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </Card>
-
-        {/* Quick Actions */}
-        <Card title="🚀 Quick Actions" variant="gradient">
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-            gap: '16px'
-          }}>
-            {[
-              { icon: '✈️', label: 'Book Flight', color: '#05758a', bg: 'rgba(5, 117, 138, 0.1)' },
-              { icon: '🎁', label: 'Redeem Miles', color: '#059669', bg: 'rgba(5, 150, 105, 0.1)' },
-              { icon: '🏨', label: 'Book Hotel', color: '#7c3aed', bg: 'rgba(124, 58, 237, 0.1)' },
-              { icon: '🚗', label: 'Rent Car', color: '#d97706', bg: 'rgba(217, 119, 6, 0.1)' }
-            ].map((action, index) => (
-              <button key={index} 
-                onClick={action.label === 'Book Flight' ? onBookFlight : undefined}
-                style={{
-                padding: '20px',
-                textAlign: 'center',
-                backgroundColor: action.bg,
-                borderRadius: '12px',
-                transition: 'all 0.3s ease',
-                border: `2px solid ${action.color}33`,
-                cursor: 'pointer',
-                background: `linear-gradient(135deg, ${action.bg} 0%, ${action.color}11 100%)`
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(-4px) scale(1.02)';
-                e.currentTarget.style.boxShadow = `0 10px 25px -3px ${action.color}33`;
-                e.currentTarget.style.borderColor = action.color;
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'translateY(0) scale(1)';
-                e.currentTarget.style.boxShadow = 'none';
-                e.currentTarget.style.borderColor = `${action.color}33`;
-              }}>
-                <div style={{
-                  fontSize: '32px',
-                  marginBottom: '12px',
-                  filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.1))'
-                }}>{action.icon}</div>
-                <div style={{
-                  fontSize: '16px',
-                  fontWeight: '600',
-                  color: action.color
-                }}>{action.label}</div>
-              </button>
-            ))}
-          </div>
-        </Card>
-
-        {/* Elite Status Modal */}
+        {/* Elite Status Modal - This is missing */}
         {showEliteStatusModal && (
           <EliteStatusModal 
             isOpen={showEliteStatusModal}

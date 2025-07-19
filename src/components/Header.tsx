@@ -194,7 +194,7 @@ const Header: React.FC<HeaderProps> = ({ user, onViewProfile }) => {
                 fontWeight: '500',
                 fontFamily: FONT_FAMILIES.primary,
                 color: '#d97706'
-              }}>{user.eliteStatus} Status</span>
+              }}>{user.eliteStatus}</span>
             </div>
           </div>
         </div>
